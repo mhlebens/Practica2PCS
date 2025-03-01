@@ -1,11 +1,13 @@
+
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class Menu extends javax.swing.JFrame {
 
     public Menu() {
-    initComponents();
-}
-    
+        initComponents();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         btAgregar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
         btAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btAgregar.setText("Agregar");
+        btAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarActionPerformed(evt);
+            }
+        });
 
         btConsultarNombre.setBackground(new java.awt.Color(51, 51, 255));
         btConsultarNombre.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
@@ -177,6 +184,36 @@ public class Menu extends javax.swing.JFrame {
         txtTratamiento.setText("");
         txtCedula.requestFocus();
     }//GEN-LAST:event_btLimpiarActionPerformed
+
+    private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
+        String cedula = txtCedula.getText();
+        String nombre = txtNombrePaciente.getText();
+        String sintomas = txtSintomas.getText();
+        String diagnostico = txtDiagnostico.getText();
+        String tratamiento = txtTratamiento.getText();
+
+        if (cedula.isEmpty() || nombre.isEmpty() || sintomas.isEmpty() || diagnostico.isEmpty() || tratamiento.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Paciente paciente = new Paciente(cedula, nombre, sintomas, diagnostico, tratamiento);
+
+        Archivo.agregarPaciente(paciente);
+
+        JOptionPane.showMessageDialog(this, "Paciente agregado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        limpiarCampos();
+    }//GEN-LAST:event_btAgregarActionPerformed
+
+    private void limpiarCampos() {
+        txtCedula.setText("");
+        txtNombrePaciente.setText("");
+        txtSintomas.setText("");
+        txtDiagnostico.setText("");
+        txtTratamiento.setText("");
+        txtCedula.requestFocus(); // Colocar el foco en el campo de cédula
+    }
 
     /**
      * @param args the command line arguments
