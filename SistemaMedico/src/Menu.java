@@ -85,6 +85,11 @@ public class Menu extends javax.swing.JFrame {
         btLimpiar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
         btLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btLimpiar.setText("Limpiar");
+        btLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,6 +183,15 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
+        txtCedula.setText("");
+        txtNombrePaciente.setText("");
+        txtSintomas.setText("");
+        txtDiagnostico.setText("");
+        txtTratamiento.setText("");
+        txtCedula.requestFocus();
+    }//GEN-LAST:event_btLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
