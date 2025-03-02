@@ -32,7 +32,7 @@ public class ConsultarSintomas {
                             "Tratamiento: " + tratamiento, 
                             "Resultado", JOptionPane.INFORMATION_MESSAGE);
                     encontrado = true;
-                    break; // 🔹 Evita que se sigan mostrando más alertas
+                    break; 
                 }
             }
 
