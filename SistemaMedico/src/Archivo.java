@@ -10,6 +10,8 @@ public class Archivo {
              OutputStreamWriter writer = new OutputStreamWriter(fos)) {
             writer.write(paciente.toString()); 
             writer.write("\n");
+            System.out.println("Paciente agregado: " + paciente.toString());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
