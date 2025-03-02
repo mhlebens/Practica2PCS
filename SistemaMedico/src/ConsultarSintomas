@@ -1,0 +1,37 @@
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+public class ConsultaPaciente {
+    public static void consultarPorSintomas(String sintomasBuscar) {
+        try (DataInputStream dis = new DataInputStream(new FileInputStream("calificacion.dat"))) {
+            boolean encontrado = false;
+            while (true) {
+                String cedula = dis.readUTF();
+                String nombre = dis.readUTF();
+                String sintomas = dis.readUTF();
+                String diagnostico = dis.readUTF();
+                String tratamiento = dis.readUTF();
+                
+                if (sintomas.contains(sintomasBuscar)) {
+                    JOptionPane.showMessageDialog(null, "Paciente encontrado:\n" +
+                        "Nombre: " + nombre + "\n" +
+                        "Cédula: " + cedula + "\n" +
+                        "Síntomas: " + sintomas + "\n" +
+                        "Diagnóstico: " + diagnostico + "\n" +
+                        "Tratamiento: " + tratamiento, "Consulta por Síntomas", JOptionPane.INFORMATION_MESSAGE);
+                    encontrado = true;
+                    break;
+                }
+            }
+        } catch (EOFException e) {
+            if (!encontrado) {
+                JOptionPane.showMessageDialog(null, "No se encontraron pacientes con esos síntomas", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
