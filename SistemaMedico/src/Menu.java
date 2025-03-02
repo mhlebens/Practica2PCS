@@ -81,6 +81,11 @@ public class Menu extends javax.swing.JFrame {
         btConsultarSintomas.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
         btConsultarSintomas.setForeground(new java.awt.Color(255, 255, 255));
         btConsultarSintomas.setText("Consultar por Síntomas");
+        btConsultarSintomas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultarSintomasActionPerformed(evt);
+            }
+        });
 
         btLimpiar.setBackground(new java.awt.Color(51, 51, 255));
         btLimpiar.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
@@ -250,6 +255,20 @@ public class Menu extends javax.swing.JFrame {
         }
     
     }//GEN-LAST:event_btConsultarNombreActionPerformed
+
+    private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarSintomasActionPerformed
+    String sintomasBuscados = txtSintomas.getText();
+    
+    if (sintomasBuscados.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese los síntomas a buscar.", 
+                "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    ConsultarSintomas.buscarPorSintomas(sintomasBuscados);
+
+
+    }//GEN-LAST:event_btConsultarSintomasActionPerformed
 
     private void limpiarCampos() {
         txtCedula.setText("");
