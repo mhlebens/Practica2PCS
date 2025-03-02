@@ -1,5 +1,9 @@
 
 import java.awt.event.ActionEvent;
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -67,6 +71,11 @@ public class Menu extends javax.swing.JFrame {
         btConsultarNombre.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
         btConsultarNombre.setForeground(new java.awt.Color(255, 255, 255));
         btConsultarNombre.setText("Consultar por Nombre");
+        btConsultarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultarNombreActionPerformed(evt);
+            }
+        });
 
         btConsultarSintomas.setBackground(new java.awt.Color(51, 51, 255));
         btConsultarSintomas.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 12)); // NOI18N
@@ -205,6 +214,42 @@ public class Menu extends javax.swing.JFrame {
 
         limpiarCampos();
     }//GEN-LAST:event_btAgregarActionPerformed
+
+    private void btConsultarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarNombreActionPerformed
+        String nombreBuscar = txtNombrePaciente.getText();
+        try (DataInputStream dis = new DataInputStream(
+                new FileInputStream("calificacion.dat"))) {
+            boolean encontrado = false;
+            while (true) {
+                String cedula = dis.readUTF();
+                String nombre = dis.readUTF();
+                String sintomas = dis.readUTF();
+                String diagnostico = dis.readUTF();
+                String tratamiento = dis.readUTF();
+                if (nombre.equals(nombreBuscar)) {
+                         
+                    txtNombrePaciente.setText(nombre);
+                    txtCedula.setText(cedula);
+                    txtSintomas.setText(sintomas);
+                      txtDiagnostico.setText(diagnostico);
+                        txtTratamiento.setText(tratamiento);
+                  
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (EOFException e) {
+            //fin del archivo
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }//GEN-LAST:event_btConsultarNombreActionPerformed
 
     private void limpiarCampos() {
         txtCedula.setText("");
