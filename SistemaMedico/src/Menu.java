@@ -222,38 +222,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void btConsultarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarNombreActionPerformed
         String nombreBuscar = txtNombrePaciente.getText();
-        try (DataInputStream dis = new DataInputStream(
-                new FileInputStream("calificacion.dat"))) {
-            boolean encontrado = false;
-            while (true) {
-                String cedula = dis.readUTF();
-                String nombre = dis.readUTF();
-                String sintomas = dis.readUTF();
-                String diagnostico = dis.readUTF();
-                String tratamiento = dis.readUTF();
-                if (nombre.equals(nombreBuscar)) {
-                         
-                    txtNombrePaciente.setText(nombre);
-                    txtCedula.setText(cedula);
-                    txtSintomas.setText(sintomas);
-                      txtDiagnostico.setText(diagnostico);
-                        txtTratamiento.setText(tratamiento);
-                  
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (!encontrado) {
-                JOptionPane.showMessageDialog(null, "Paciente no encontrado", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (EOFException e) {
-            //fin del archivo
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
     
+        if (nombreBuscar.isEmpty() ){
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre por favor");
+        }
+        ConsultarNombre.porNombre(nombreBuscar);
+      
     }//GEN-LAST:event_btConsultarNombreActionPerformed
 
     private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarSintomasActionPerformed
