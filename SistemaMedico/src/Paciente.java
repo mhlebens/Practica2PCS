@@ -13,6 +13,26 @@ public class Paciente {
         this.tratamiento = tratamiento;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getSintomas() {
+        return sintomas;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public String getTratamiento() {
+        return tratamiento;
+    }
+
     @Override
     public String toString() {
         return cedula + "," + nombre + "," + sintomas + "," + diagnostico + "," + tratamiento;

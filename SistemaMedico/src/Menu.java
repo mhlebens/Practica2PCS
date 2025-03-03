@@ -222,6 +222,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btConsultarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarNombreActionPerformed
         String nombreBuscar = txtNombrePaciente.getText();
+
     
         if (nombreBuscar.isEmpty() ){
             JOptionPane.showMessageDialog(null, "Ingrese un nombre por favor");
@@ -230,7 +231,7 @@ public class Menu extends javax.swing.JFrame {
       
     }//GEN-LAST:event_btConsultarNombreActionPerformed
 
-    private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarSintomasActionPerformed
+    private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {                                                    
     String sintomasBuscados = txtSintomas.getText();
     
     if (sintomasBuscados.isEmpty()) {
@@ -240,6 +241,52 @@ public class Menu extends javax.swing.JFrame {
     }
 
     ConsultarSintomas.buscarPorSintomas(sintomasBuscados);
+
+        try (DataInputStream dis = new DataInputStream(
+                new FileInputStream("pacientes.dat"))) {
+            boolean encontrado = false;
+            while (dis.available() > 0) {
+                String cedula = dis.readUTF();
+                String nombre = dis.readUTF();
+                String sintomas = dis.readUTF();
+                String diagnostico = dis.readUTF();
+                String tratamiento = dis.readUTF();
+                if (sintomas.equals(sintomasBuscados)) {
+
+                    txtNombrePaciente.setText(nombre);
+                    txtCedula.setText(cedula);
+                    txtSintomas.setText(sintomas);
+                    txtDiagnostico.setText(diagnostico);
+                    txtTratamiento.setText(tratamiento);
+
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                JOptionPane.showMessageDialog(null, "Paciente no encontrado", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (EOFException e) {
+            //fin del archivo
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+    }                                                 
+
+    private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarSintomasActionPerformed
+        String sintomasBuscados = txtSintomas.getText();
+
+        if (sintomasBuscados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los síntomas a buscar.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ConsultarSintomas.buscarPorSintomas(sintomasBuscados);
+
 
 
     }//GEN-LAST:event_btConsultarSintomasActionPerformed

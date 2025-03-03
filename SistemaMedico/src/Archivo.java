@@ -1,5 +1,10 @@
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+
 import java.io.IOException;
 
 public class Archivo {
@@ -7,9 +12,13 @@ public class Archivo {
 
     public static void agregarPaciente(Paciente paciente) {
         try (FileOutputStream fos = new FileOutputStream(ARCHIVO, true);
-             OutputStreamWriter writer = new OutputStreamWriter(fos)) {
-            writer.write(paciente.toString()); 
-            writer.write("\n");
+             DataOutputStream dos = new DataOutputStream(fos)) {
+            dos.writeUTF(paciente.getCedula());
+            dos.writeUTF(paciente.getNombre());
+            dos.writeUTF(paciente.getSintomas());
+            dos.writeUTF(paciente.getDiagnostico());
+            dos.writeUTF(paciente.getTratamiento());
+            
             System.out.println("Paciente agregado: " + paciente.toString());
 
         } catch (IOException e) {
