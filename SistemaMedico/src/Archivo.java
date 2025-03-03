@@ -3,7 +3,7 @@ import java.io.OutputStreamWriter;
 import java.io.IOException;
 
 public class Archivo {
-    private static final String ARCHIVO = "pacientes.txt";
+    private static final String ARCHIVO = "pacientes.dat";
 
     public static void agregarPaciente(Paciente paciente) {
         try (FileOutputStream fos = new FileOutputStream(ARCHIVO, true);
