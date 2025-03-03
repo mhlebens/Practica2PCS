@@ -223,22 +223,22 @@ public class Menu extends javax.swing.JFrame {
     private void btConsultarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarNombreActionPerformed
         String nombreBuscar = txtNombrePaciente.getText();
         try (DataInputStream dis = new DataInputStream(
-                new FileInputStream("calificacion.dat"))) {
+                new FileInputStream("pacientes.dat"))) {
             boolean encontrado = false;
-            while (true) {
+            while (dis.available() > 0) {
                 String cedula = dis.readUTF();
                 String nombre = dis.readUTF();
                 String sintomas = dis.readUTF();
                 String diagnostico = dis.readUTF();
                 String tratamiento = dis.readUTF();
                 if (nombre.equals(nombreBuscar)) {
-                         
+
                     txtNombrePaciente.setText(nombre);
                     txtCedula.setText(cedula);
                     txtSintomas.setText(sintomas);
-                      txtDiagnostico.setText(diagnostico);
-                        txtTratamiento.setText(tratamiento);
-                  
+                    txtDiagnostico.setText(diagnostico);
+                    txtTratamiento.setText(tratamiento);
+
                     encontrado = true;
                     break;
                 }
@@ -253,19 +253,19 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al consultar los datos", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    
+
     }//GEN-LAST:event_btConsultarNombreActionPerformed
 
     private void btConsultarSintomasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarSintomasActionPerformed
-    String sintomasBuscados = txtSintomas.getText();
-    
-    if (sintomasBuscados.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor ingrese los síntomas a buscar.", 
-                "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+        String sintomasBuscados = txtSintomas.getText();
 
-    ConsultarSintomas.buscarPorSintomas(sintomasBuscados);
+        if (sintomasBuscados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los síntomas a buscar.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ConsultarSintomas.buscarPorSintomas(sintomasBuscados);
 
 
     }//GEN-LAST:event_btConsultarSintomasActionPerformed
